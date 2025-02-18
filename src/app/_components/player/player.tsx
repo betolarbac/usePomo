@@ -10,6 +10,7 @@ export default function Player() {
   const [pausePlayer, setPausePlayer] = useState(false);
   const [player, setPlayer] = useState<YT.Player | null>(null);
   const [ progress, setProgress ] = useState(0)
+  const [ musicTitle, setMusicTitle] = useState("")
 
   const videoId = "jfKfPfyJRdk";
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
@@ -25,7 +26,12 @@ export default function Player() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onReady = (event: any) => {
+    const playerInstance = event.target;
     setPlayer(event.target);
+
+    const videoData = playerInstance.getVideoData();
+
+    setMusicTitle( videoData.title)
   };
 
   const reverPlayer = () => {
@@ -52,17 +58,17 @@ export default function Player() {
         <header className="flex flex-col gap-5">
           <h1 className="font-extrabold text-center text-xl">UsePomo</h1>
 
-          <div className="justify-items-center">
+          <div className="justify-items-center text-center">
             <p className="uppercase text-[.65rem]">tocando agora </p>
-            <strong className="text-base">O Canal Lo-Fi</strong>
+            <strong className="text-base">{musicTitle}</strong>
           </div>
         </header>
 
         <div className="flex flex-col gap-3">
-          <Image src={thumbnailUrl} alt="img" width={250} height={140} />
+          <Image src={thumbnailUrl} alt="img" width={270} height={140} />
 
           <div className="flex flex-col gap-4">
-            <strong className="text-base">O Canal Lo-Fi</strong>
+            <strong className="text-base">{musicTitle}</strong>
             <Progress value={progress} />
           </div>
         </div>
