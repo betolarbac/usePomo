@@ -5,6 +5,7 @@ import { CirclePause, Play, SkipForward } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
+import Logo from "../Logo";
 
 export default function Player() {
   const [pausePlayer, setPausePlayer] = useState(false);
@@ -59,7 +60,7 @@ export default function Player() {
       <YouTube videoId={videoId} opts={opts} onReady={onReady} />
       <div className="max-w-80 flex-1 p-6 border border-zinc-800 rounded-md h-full text-white flex flex-col justify-between z-20 relative">
         <header className="flex flex-col gap-5">
-          <h1 className="font-extrabold text-center text-xl">UsePomo</h1>
+          <Logo/> 
 
           <div className="justify-items-center text-center">
             <p className="uppercase text-[.65rem]">tocando agora </p>
@@ -68,7 +69,7 @@ export default function Player() {
         </header>
 
         <div className="flex flex-col gap-3">
-          <Image src={thumbnailUrl} alt="img" width={270} height={140} />
+          <Image src={thumbnailUrl} alt="img" width={270} height={140} className="rounded" />
 
           <div className="flex flex-col gap-2">
             <strong className="text-base line-clamp-1">{musicTitle}</strong>
