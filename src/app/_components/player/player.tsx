@@ -56,24 +56,23 @@ export default function Player() {
       }
     }, 500);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval);  
   }, [player]);
 
   useEffect(() => {
     player?.setVolume(volume[0]);
-  }, [player, volume]);
+  }, [volume]);
 
   const NextItem = () => {
     setIndex((prevIndex) => (prevIndex + 1) % playList.length);
-
-    reverPlayer();
+    setPausePlayer(false);
   };
 
   const prevItem = () => {
     setIndex(
       (prevIndex) => (prevIndex - 1 + playList.length) % playList.length
     );
-    reverPlayer();
+    setPausePlayer(false);
   };
 
   return (
