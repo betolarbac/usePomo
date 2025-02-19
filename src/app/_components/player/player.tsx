@@ -1,22 +1,25 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { CirclePause, Play, SkipForward } from "lucide-react";
+import { CirclePause, Play, SkipForward, Volume1, Volume2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import Logo from "../Logo";
+import Link from "next/link";
+import { Slider } from "@/components/ui/slider";
 
-const music = ["jfKfPfyJRdk", "12fJAnaif34", "fPO76Jlnz6c"];
+const playList = ["jfKfPfyJRdk", "HuFYqnbVbzY", "Na0w3Mz46GA", "TtkFsfOP9QI"];
 
 export default function Player() {
   const [pausePlayer, setPausePlayer] = useState(false);
   const [player, setPlayer] = useState<YT.Player | null>(null);
   const [progress, setProgress] = useState(0);
+  const [volume, setVolume] = useState([50]);
   const [musicTitle, setMusicTitle] = useState("");
   const [index, setIndex] = useState(0);
 
-  const videoId = music[index];
+  const videoId = playList[index];
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
   const opts = {
@@ -36,6 +39,8 @@ export default function Player() {
     const videoData = playerInstance.getVideoData();
 
     setMusicTitle(videoData.title);
+
+    playerInstance.setVolume(volume);
   };
 
   const reverPlayer = () => {
@@ -54,14 +59,20 @@ export default function Player() {
     return () => clearInterval(interval);
   }, [player]);
 
+  useEffect(() => {
+    player?.setVolume(volume[0]);
+  }, [player, volume]);
+
   const NextItem = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % music.length);
+    setIndex((prevIndex) => (prevIndex + 1) % playList.length);
 
     reverPlayer();
   };
 
   const prevItem = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + music.length) % music.length);
+    setIndex(
+      (prevIndex) => (prevIndex - 1 + playList.length) % playList.length
+    );
     reverPlayer();
   };
 
@@ -93,11 +104,25 @@ export default function Player() {
 
           <div className="flex flex-col gap-2">
             <strong className="text-base line-clamp-1">{musicTitle}</strong>
+            <Link href="https://www.youtube.com/@LofiGirl" className="text-sm">
+              Lofi Girl
+            </Link>
             <Progress value={progress} />
 
             <div className="flex justify-between">
               <span>0:00</span>
               <span>3:00</span>
+            </div>
+
+            <div className="flex gap-2">
+              <Volume1 className="w-5 h-5" />
+              <Slider
+                defaultValue={[50]}
+                max={100}
+                step={1}
+                onValueChange={(val) => setVolume(val)}
+              />
+              <Volume2 className="w-5 h-5" />
             </div>
           </div>
         </div>
