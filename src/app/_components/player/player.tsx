@@ -7,13 +7,16 @@ import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import Logo from "../Logo";
 
+const music = ["jfKfPfyJRdk", "12fJAnaif34", "fPO76Jlnz6c"];
+
 export default function Player() {
   const [pausePlayer, setPausePlayer] = useState(false);
   const [player, setPlayer] = useState<YT.Player | null>(null);
   const [progress, setProgress] = useState(0);
   const [musicTitle, setMusicTitle] = useState("");
+  const [index, setIndex] = useState(0);
 
-  const videoId = "jfKfPfyJRdk";
+  const videoId = music[index];
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
   const opts = {
@@ -51,6 +54,17 @@ export default function Player() {
     return () => clearInterval(interval);
   }, [player]);
 
+  const NextItem = () => {
+    setIndex((prevIndex) => (prevIndex + 1) % music.length);
+
+    reverPlayer();
+  };
+
+  const prevItem = () => {
+    setIndex((prevIndex) => (prevIndex - 1 + music.length) % music.length);
+    reverPlayer();
+  };
+
   return (
     <div
       style={{ backgroundImage: `url(${thumbnailUrl})` }}
@@ -60,7 +74,7 @@ export default function Player() {
       <YouTube videoId={videoId} opts={opts} onReady={onReady} />
       <div className="max-w-80 flex-1 p-6 border border-zinc-800 rounded-md h-full text-white flex flex-col justify-between z-20 relative">
         <header className="flex flex-col gap-5">
-          <Logo/> 
+          <Logo />
 
           <div className="justify-items-center text-center">
             <p className="uppercase text-[.65rem]">tocando agora </p>
@@ -69,7 +83,13 @@ export default function Player() {
         </header>
 
         <div className="flex flex-col gap-3">
-          <Image src={thumbnailUrl} alt="img" width={270} height={140} className="rounded" />
+          <Image
+            src={thumbnailUrl}
+            alt="img"
+            width={270}
+            height={140}
+            className="rounded"
+          />
 
           <div className="flex flex-col gap-2">
             <strong className="text-base line-clamp-1">{musicTitle}</strong>
@@ -83,7 +103,7 @@ export default function Player() {
         </div>
 
         <div className="flex pb-11 flex-row gap-3 items-center justify-center">
-          <Button>
+          <Button onClick={prevItem}>
             <SkipForward className="w-5 h-5 rotate-180" />
           </Button>
 
@@ -103,7 +123,7 @@ export default function Player() {
             </Button>
           )}
 
-          <Button>
+          <Button onClick={NextItem}>
             <SkipForward className="w-5 h-5" />
           </Button>
         </div>
