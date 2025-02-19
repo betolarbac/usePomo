@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { CirclePause, Play } from "lucide-react";
+import { CirclePause, Play, SkipForward } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
@@ -9,8 +9,8 @@ import YouTube from "react-youtube";
 export default function Player() {
   const [pausePlayer, setPausePlayer] = useState(false);
   const [player, setPlayer] = useState<YT.Player | null>(null);
-  const [ progress, setProgress ] = useState(0)
-  const [ musicTitle, setMusicTitle] = useState("")
+  const [progress, setProgress] = useState(0);
+  const [musicTitle, setMusicTitle] = useState("");
 
   const videoId = "jfKfPfyJRdk";
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
@@ -31,27 +31,30 @@ export default function Player() {
 
     const videoData = playerInstance.getVideoData();
 
-    setMusicTitle( videoData.title)
+    setMusicTitle(videoData.title);
   };
 
   const reverPlayer = () => {
-    setPausePlayer(!pausePlayer)
-  }
+    setPausePlayer(!pausePlayer);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (player) {
         const currentTime = player.getCurrentTime();
         const duration = player.getDuration();
-        setProgress((currentTime / duration ) * 100)
+        setProgress((currentTime / duration) * 100);
       }
-    }, 500)
+    }, 500);
 
-    return () => clearInterval(interval)
-  }, [player])
+    return () => clearInterval(interval);
+  }, [player]);
 
   return (
-    <div style={{ backgroundImage: `url(${thumbnailUrl})` }} className="rounded-md bg-cover bg-center relative">
+    <div
+      style={{ backgroundImage: `url(${thumbnailUrl})` }}
+      className="rounded-md bg-cover bg-center relative"
+    >
       <div className="bg-[#1f1f1f] absolute top-0 left-0 right-0 bottom-0 opacity-[.9] z-10"></div>
       <YouTube videoId={videoId} opts={opts} onReady={onReady} />
       <div className="max-w-80 flex-1 p-6 border border-zinc-800 rounded-md h-full text-white flex flex-col justify-between z-20 relative">
@@ -60,20 +63,29 @@ export default function Player() {
 
           <div className="justify-items-center text-center">
             <p className="uppercase text-[.65rem]">tocando agora </p>
-            <strong className="text-base">{musicTitle}</strong>
+            <strong className="text-base line-clamp-2">{musicTitle}</strong>
           </div>
         </header>
 
         <div className="flex flex-col gap-3">
           <Image src={thumbnailUrl} alt="img" width={270} height={140} />
 
-          <div className="flex flex-col gap-4">
-            <strong className="text-base">{musicTitle}</strong>
+          <div className="flex flex-col gap-2">
+            <strong className="text-base line-clamp-1">{musicTitle}</strong>
             <Progress value={progress} />
+
+            <div className="flex justify-between">
+              <span>0:00</span>
+              <span>3:00</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pb-11 items-center">
+        <div className="flex pb-11 flex-row gap-3 items-center justify-center">
+          <Button>
+            <SkipForward className="w-5 h-5 rotate-180" />
+          </Button>
+
           {pausePlayer ? (
             <Button
               className="w-12 h-12 rounded-full"
@@ -89,6 +101,10 @@ export default function Player() {
               <Play className="w-6 h-6" />
             </Button>
           )}
+
+          <Button>
+            <SkipForward className="w-5 h-5" />
+          </Button>
         </div>
       </div>
     </div>
