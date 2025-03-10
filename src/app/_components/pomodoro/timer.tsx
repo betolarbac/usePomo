@@ -140,16 +140,16 @@ export default function Timer({ onStageChange }: TimerProps) {
       </div>
 
       <div className="flex space-x-4">
-        <Button onClick={resetTimer} variant="outline" className="bg-zinc-800 hover:bg-zinc-800 rounded-sm border border-zinc-500 text-zinc-500 hover:text-zinc-500">
+        <Button onClick={resetTimer} variant="outline" className="bg-zinc-800 hover:bg-zinc-800/80 rounded-sm border border-zinc-500 text-zinc-500 hover:text-zinc-500">
           <RotateCcw />
         </Button>
 
         {isRunning ? (
-          <Button onClick={() => setIsRunning(false)} variant="default" className="bg-primary/10 hover:bg-primary/10 border border-primary text-primary">
+          <Button onClick={() => setIsRunning(false)} variant="default" className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
             <Pause />
           </Button>
         ) : (
-          <Button onClick={() => { playStartSound(); setIsRunning(true)}} variant="default" className="bg-primary/10 hover:bg-primary/10 border border-primary text-primary">
+          <Button onClick={() => { playStartSound(); setIsRunning(true)}} variant="default" className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
             <Play />
           </Button>
         )}
