@@ -30,7 +30,7 @@ export default function Timer() {
   const currentStage = stageSequence[currentStageIndex];
   const totalDuration = stageDurations[currentStage];
   const percentage = ((totalDuration - timeLeft) / totalDuration) * 100;
-  
+
   const moveToNextStage = () => {
     const nextIndex = (currentStageIndex + 1) % stageSequence.length;
     setCurrentStageIndex(nextIndex);
