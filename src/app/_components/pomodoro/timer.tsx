@@ -3,7 +3,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, RotateCcw } from "lucide-react";
 
-type PomodoroStage = "focus" | "shortBreak" | "longBreak";
+export type PomodoroStage = "focus" | "shortBreak" | "longBreak";
+interface TimerProps {
+  onStageChange?: (
+    currentStage: PomodoroStage,
+    nextStage: PomodoroStage
+  ) => void;
+}
 
 const stageDurations = {
   focus: 25 * 60, // 25 minutes
@@ -22,7 +28,7 @@ const stageSequence: PomodoroStage[] = [
   "longBreak",
 ];
 
-export default function Timer() {
+export default function Timer({ onStageChange }: TimerProps) {
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(stageDurations.focus);
   const [isRunning, setIsRunning] = useState(false);
@@ -87,6 +93,18 @@ export default function Timer() {
         return "text-primary";
     }
   };
+
+  const getNextStage = () => {
+    const nextIndex = (currentStageIndex + 1) % stageSequence.length;
+
+    return stageSequence[nextIndex];
+  };
+
+  useEffect(() => {
+    if (onStageChange) {
+      onStageChange(currentStage, getNextStage());
+    }
+  }, [currentStage]);
 
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
