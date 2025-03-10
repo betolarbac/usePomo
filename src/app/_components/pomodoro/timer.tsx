@@ -14,9 +14,9 @@ interface TimerProps {
 }
 
 const stageDurations = {
-  focus: 25 * 60, // 25 minutes
-  shortBreak: 5 * 60, // 5 minutes
-  longBreak: 15 * 60, // 15 minutes
+  focus: 0.1 * 60, // 25 minutes
+  shortBreak: 0.1 * 60, // 5 minutes
+  longBreak: 0.1 * 60, // 15 minutes
 };
 
 const stageSequence: PomodoroStage[] = [
@@ -87,6 +87,12 @@ export default function Timer({ onStageChange }: TimerProps) {
     return stageSequence[nextIndex];
   };
 
+  const playStartSound = () => {
+    const audio = new Audio("/sounds/start.mp3");
+
+    audio.play().catch(error => console.error("Error playing audio:", error))
+  }
+
   useEffect(() => {
     if (onStageChange) {
       onStageChange(currentStage, getNextStage());
@@ -134,16 +140,16 @@ export default function Timer({ onStageChange }: TimerProps) {
       </div>
 
       <div className="flex space-x-4">
-        <Button onClick={resetTimer} variant="outline">
+        <Button onClick={resetTimer} variant="outline" className="bg-zinc-800 hover:bg-zinc-800 rounded-sm border border-zinc-500 text-zinc-500 hover:text-zinc-500">
           <RotateCcw />
         </Button>
 
         {isRunning ? (
-          <Button onClick={() => setIsRunning(false)} variant="default">
+          <Button onClick={() => setIsRunning(false)} variant="default" className="bg-primary/10 hover:bg-primary/10 border border-primary text-primary">
             <Pause />
           </Button>
         ) : (
-          <Button onClick={() => setIsRunning(true)} variant="default">
+          <Button onClick={() => { playStartSound(); setIsRunning(true)}} variant="default" className="bg-primary/10 hover:bg-primary/10 border border-primary text-primary">
             <Play />
           </Button>
         )}
