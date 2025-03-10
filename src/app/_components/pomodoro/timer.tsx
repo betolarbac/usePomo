@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, RotateCcw } from "lucide-react";
+import formatTime from "@/hooks/formatTime";
 
 export type PomodoroStage = "focus" | "shortBreak" | "longBreak";
 interface TimerProps {
@@ -60,25 +61,9 @@ export default function Timer({ onStageChange }: TimerProps) {
     };
   }, [isRunning, timeLeft]);
 
-  const startTimer = () => {
-    setIsRunning(true);
-  };
-
-  const pauseTimer = () => {
-    setIsRunning(false);
-  };
-
   const resetTimer = () => {
     setIsRunning(false);
     setTimeLeft(stageDurations[currentStage]);
-  };
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs
-      .toString()
-      .padStart(2, "0")}`;
   };
 
   const getStageColor = () => {
@@ -152,11 +137,11 @@ export default function Timer({ onStageChange }: TimerProps) {
         </Button>
 
         {isRunning ? (
-          <Button onClick={pauseTimer} variant="default">
+          <Button onClick={()=> setIsRunning(false)} variant="default">
             <Pause />
           </Button>
         ) : (
-          <Button onClick={startTimer} variant="default">
+          <Button onClick={()=> setIsRunning(true)} variant="default">
             <Play />
           </Button>
         )}
