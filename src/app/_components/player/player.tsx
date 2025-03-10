@@ -127,27 +127,27 @@ export default function Player() {
         </div>
 
         <div className="flex pb-11 flex-row gap-3 items-center justify-center">
-          <Button onClick={prevItem}>
+          <Button onClick={prevItem} className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
             <SkipForward className="w-5 h-5 rotate-180" />
           </Button>
 
           {pausePlayer ? (
             <Button
-              className="w-12 h-12 rounded-full"
+              className="w-12 h-12 rounded-full bg-primary/10 hover:bg-primary/5 border border-primary text-primary"
               onClick={() => player?.pauseVideo() && reverPlayer()}
             >
               <CirclePause className="w-6 h-6" />
             </Button>
           ) : (
             <Button
-              className="w-12 h-12 rounded-full"
+              className="w-12 h-12 rounded-full bg-primary/10 hover:bg-primary/5 border border-primary text-primary"
               onClick={() => player?.playVideo() && reverPlayer()}
             >
               <Play className="w-6 h-6" />
             </Button>
           )}
 
-          <Button onClick={NextItem}>
+          <Button onClick={NextItem} className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
             <SkipForward className="w-5 h-5" />
           </Button>
         </div>
