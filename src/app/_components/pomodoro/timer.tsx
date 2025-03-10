@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import formatTime from "@/hooks/formatTime";
+import showNotification from "./showNotification";
 
 export type PomodoroStage = "focus" | "shortBreak" | "longBreak";
 interface TimerProps {
@@ -40,6 +41,7 @@ export default function Timer({ onStageChange }: TimerProps) {
 
   const moveToNextStage = () => {
     const nextIndex = (currentStageIndex + 1) % stageSequence.length;
+    showNotification(currentStage);
     setCurrentStageIndex(nextIndex);
     setTimeLeft(stageDurations[stageSequence[nextIndex]]);
   };
@@ -137,11 +139,11 @@ export default function Timer({ onStageChange }: TimerProps) {
         </Button>
 
         {isRunning ? (
-          <Button onClick={()=> setIsRunning(false)} variant="default">
+          <Button onClick={() => setIsRunning(false)} variant="default">
             <Pause />
           </Button>
         ) : (
-          <Button onClick={()=> setIsRunning(true)} variant="default">
+          <Button onClick={() => setIsRunning(true)} variant="default">
             <Play />
           </Button>
         )}
