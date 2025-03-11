@@ -109,8 +109,7 @@ export default function Player() {
             <Progress value={progress} />
 
             <div className="flex justify-between">
-              <span>0:00</span>
-              <span>3:00</span>
+              <span className="bg-red-400/10 px-1 text-sm rounded-sm border border-red-500 text-red-500">Live</span>
             </div>
 
             <div className="flex gap-2">
