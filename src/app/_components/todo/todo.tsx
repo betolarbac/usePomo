@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Check, Plus, Rocket, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -90,46 +91,56 @@ export default function Todo() {
         </div>
       </div>
 
-      <div className="h-full py-6">
-        {todos.length === 0 ? (
-          <div>Nenhuma task cadastrada</div>
-        ) : (
-          <ul>
-            {todos.map((todo) => (
-              <li key={todo.id}>
-                <div className="flex items-center gap-2 p-2">
-                  <Button
-                    className={` w-5 h-5 p-0 transition-all ${
-                      todo.completed
-                        ? "bg-primary/10 hover:bg-primary/5 border border-primary"
-                        : "bg-zinc-800 border border-zinc-700"
-                    }`}
-                    onClick={() => toggleTodo(todo.id)}
-                  >
-                    {todo.completed && (
-                      <Check className="w-4 h-4 text-primary" />
-                    )}
-                  </Button>
-                  <span className={`flex-1 text-base font-medium ${todo.completed ? " line-through text-zinc-600" : "text-zinc-500"}`}>
-                    {todo.text}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    className="hover:bg-transparent p-0 mr-2"
-                    onClick={() => deleteTodo(todo.id)}
-                  >
-                    <Trash2 className="text-red-500 w-5 h-5" />
-                  </Button>
-                  <Button className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary p-2">
-                    <Plus className="w-5 h-5" />
-                    Subtask
-                  </Button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <ScrollArea className="h-full max-h-[436px] py-6">
+        <div className="pr-6">
+          {todos.length === 0 ? (
+            <div className="flex justify-center">
+              <span className="text-zinc-500 text-base font-medium">Nenhuma task cadastrada</span>
+            </div>
+          ) : (
+            <ul>
+              {todos.map((todo) => (
+                <li key={todo.id}>
+                  <div className="flex items-center gap-2 p-2">
+                    <Button
+                      className={` w-5 h-5 p-0 transition-all ${
+                        todo.completed
+                          ? "bg-primary/10 hover:bg-primary/5 border border-primary"
+                          : "bg-zinc-800 border border-zinc-700"
+                      }`}
+                      onClick={() => toggleTodo(todo.id)}
+                    >
+                      {todo.completed && (
+                        <Check className="w-4 h-4 text-primary" />
+                      )}
+                    </Button>
+                    <span
+                      className={`flex-1 text-base font-medium ${
+                        todo.completed
+                          ? " line-through text-zinc-600"
+                          : "text-zinc-500"
+                      }`}
+                    >
+                      {todo.text}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      className="hover:bg-transparent p-0 mr-2"
+                      onClick={() => deleteTodo(todo.id)}
+                    >
+                      <Trash2 className="text-red-500 w-5 h-5" />
+                    </Button>
+                    <Button className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary p-2">
+                      <Plus className="w-5 h-5" />
+                      Subtask
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </ScrollArea>
 
       <div className="flex w-full items-center gap-3">
         <Input
