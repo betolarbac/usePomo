@@ -1,6 +1,7 @@
 import Header from "./_components/header/header";
 import Player from "./_components/player/player";
 import Pomodoro from "./_components/pomodoro/pomodoro";
+import Todo from "./_components/todo/todo";
 
 export default function Home() {
   return (
@@ -16,9 +17,8 @@ export default function Home() {
           </div>
           <div className="flex gap-9">
             <Pomodoro />
-           <div className="border rounded-xl border-zinc-800 p-6 flex-1">
-           <h2 className="text-white">Todo</h2>
-           </div>
+
+            <Todo />
           </div>
         </div>
       </div>
