@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import formatTime from "@/hooks/formatTime";
 import showNotification from "./showNotification";
+import { useLevelContext } from "../level-progress/levelContext";
 
 export type PomodoroStage = "focus" | "shortBreak" | "longBreak";
 interface TimerProps {
@@ -34,6 +35,7 @@ export default function Timer({ onStageChange }: TimerProps) {
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(stageDurations.focus);
   const [isRunning, setIsRunning] = useState(false);
+  const { addPoints, incrementSession } = useLevelContext();
 
   const currentStage = stageSequence[currentStageIndex];
   const totalDuration = stageDurations[currentStage];
@@ -42,6 +44,12 @@ export default function Timer({ onStageChange }: TimerProps) {
   const moveToNextStage = () => {
     const nextIndex = (currentStageIndex + 1) % stageSequence.length;
     showNotification(currentStage);
+    
+    if (currentStage === "focus") {
+      addPoints(5); 
+      incrementSession();
+    }
+    
     setCurrentStageIndex(nextIndex);
     setTimeLeft(stageDurations[stageSequence[nextIndex]]);
   };
