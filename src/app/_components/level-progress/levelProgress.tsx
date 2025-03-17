@@ -3,6 +3,7 @@
 import { Progress } from "@/components/ui/progress";
 import { Flame, Star } from "lucide-react";
 import { useLevelContext } from "./levelContext";
+import ConquestLevel from "../conquest-level/conquestLevel";
 
 export default function LevelProgress() {
   const { level, points, streak, sessionsCompleted } = useLevelContext();
@@ -12,7 +13,10 @@ export default function LevelProgress() {
   const progressPercentage = (points / pointsForNextLevel) * 100;
 
   return (
-    <div className="h-28 mt-12 mb-6 border rounded-xl border-zinc-800 p-6 flex-1">
+    <div className="mt-12 mb-6 border rounded-xl border-zinc-800 p-6 flex-1">
+      <div className="flex justify-end">
+        <ConquestLevel />
+      </div>
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold bg-primary/10 hover:bg-primary/10 border border-primary text-primary">

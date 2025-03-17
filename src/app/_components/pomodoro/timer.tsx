@@ -5,6 +5,7 @@ import { Pause, Play, RotateCcw } from "lucide-react";
 import formatTime from "@/hooks/formatTime";
 import showNotification from "./showNotification";
 import { useLevelContext } from "../level-progress/levelContext";
+import { useConquestContext } from "../conquest-level/conquestContext";
 
 export type PomodoroStage = "focus" | "shortBreak" | "longBreak";
 interface TimerProps {
@@ -41,15 +42,23 @@ export default function Timer({ onStageChange }: TimerProps) {
   const totalDuration = stageDurations[currentStage];
   const percentage = ((totalDuration - timeLeft) / totalDuration) * 100;
 
+  const { updateAchievement, focusTimeAccumulated, setFocusTimeAccumulated } =
+    useConquestContext();
+
   const moveToNextStage = () => {
     const nextIndex = (currentStageIndex + 1) % stageSequence.length;
     showNotification(currentStage);
-    
+
     if (currentStage === "focus") {
-      addPoints(5); 
+      addPoints(5);
       incrementSession();
+
+      const focusMinutesCompleted = Math.floor(stageDurations.focus / 60);
+      const newFocusTime = focusTimeAccumulated + focusMinutesCompleted;
+      setFocusTimeAccumulated(newFocusTime);
+      updateAchievement("focus", newFocusTime);
     }
-    
+
     setCurrentStageIndex(nextIndex);
     setTimeLeft(stageDurations[stageSequence[nextIndex]]);
   };
@@ -98,8 +107,8 @@ export default function Timer({ onStageChange }: TimerProps) {
   const playStartSound = () => {
     const audio = new Audio("/sounds/start.mp3");
 
-    audio.play().catch(error => console.error("Error playing audio:", error))
-  }
+    audio.play().catch((error) => console.error("Error playing audio:", error));
+  };
 
   useEffect(() => {
     if (onStageChange) {
@@ -148,16 +157,31 @@ export default function Timer({ onStageChange }: TimerProps) {
       </div>
 
       <div className="flex space-x-4">
-        <Button onClick={resetTimer} variant="outline" className="bg-zinc-800 hover:bg-zinc-800/80 rounded-sm border border-zinc-500 text-zinc-500 hover:text-zinc-500">
+        <Button
+          onClick={resetTimer}
+          variant="outline"
+          className="bg-zinc-800 hover:bg-zinc-800/80 rounded-sm border border-zinc-500 text-zinc-500 hover:text-zinc-500"
+        >
           <RotateCcw />
         </Button>
 
         {isRunning ? (
-          <Button onClick={() => setIsRunning(false)} variant="default" className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
+          <Button
+            onClick={() => setIsRunning(false)}
+            variant="default"
+            className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary"
+          >
             <Pause />
           </Button>
         ) : (
-          <Button onClick={() => { playStartSound(); setIsRunning(true)}} variant="default" className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary">
+          <Button
+            onClick={() => {
+              playStartSound();
+              setIsRunning(true);
+            }}
+            variant="default"
+            className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary"
+          >
             <Play />
           </Button>
         )}
