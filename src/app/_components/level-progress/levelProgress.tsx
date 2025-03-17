@@ -14,8 +14,11 @@ export default function LevelProgress() {
 
   return (
     <div className="mt-12 mb-6 border rounded-xl border-zinc-800 p-6 flex-1">
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <h2 className="text-xl font-bold text-zinc-400 mb-4">Sua jornada de progresso</h2>
+        <div>
         <ConquestLevel />
+        </div>
       </div>
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center gap-2">
