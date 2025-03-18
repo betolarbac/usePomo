@@ -2,7 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Check, Plus, Rocket, Trash2 } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronUp,
+  Plus,
+  Rocket,
+  Trash2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Subtask = {
@@ -22,8 +29,8 @@ type Todo = {
 export default function Todo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
-  // const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
-  // const [newSubtask, setNewSubtask] = useState("");
+  const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
+  const [newSubtask, setNewSubtask] = useState("");
 
   useEffect(() => {
     const savedTodos = localStorage.getItem("todos");
@@ -37,7 +44,9 @@ export default function Todo() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    if (todos.length > 0) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
   }, [todos]);
 
   const addTodo = () => {
@@ -76,6 +85,75 @@ export default function Todo() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const addSubtask = (todoId: string) => {
+    if (newSubtask.trim() === "") return;
+
+    setTodos(
+      todos.map((todo) =>
+        todo.id === todoId
+          ? {
+              ...todo,
+              subtasks: [
+                ...todo.subtasks,
+                {
+                  id: Date.now().toString(),
+                  text: newSubtask,
+                  completed: false,
+                },
+              ],
+            }
+          : todo
+      )
+    );
+
+    setNewSubtask("");
+    setEditingTodoId(null);
+  };
+
+  const toggleSubtask = (todoId: string, subTaskId: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === todoId
+          ? {
+              ...todo,
+              subtasks: todo.subtasks.map((st) =>
+                st.id === subTaskId
+                  ? {
+                      ...st,
+                      completed: !st.completed,
+                    }
+                  : st
+              ),
+              completed: todo.subtasks.every((st) =>
+                st.id === subTaskId ? !st.completed : st.completed
+              ),
+            }
+          : todo
+      )
+    );
+  };
+
+  const deleteSubtask = (todoId: string, subTaskId: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === todoId
+          ? {
+              ...todo,
+              subtasks: todo.subtasks.filter((st) => st.id !== subTaskId),
+            }
+          : todo
+      )
+    );
+  };
+
+  const toggleExpanded = (id: string) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, expanded: !todo.expanded } : todo
+      )
+    );
+  };
+
   return (
     <div className="flex flex-col border rounded-xl border-zinc-800 p-6 flex-1">
       <div className="flex items-center justify-between border-b-[1px] border-zinc-800 pb-6">
@@ -95,7 +173,9 @@ export default function Todo() {
         <div className="pr-6">
           {todos.length === 0 ? (
             <div className="flex justify-center">
-              <span className="text-zinc-500 text-base font-medium">Nenhuma task cadastrada</span>
+              <span className="text-zinc-500 text-base font-medium">
+                Nenhuma task cadastrada
+              </span>
             </div>
           ) : (
             <ul>
@@ -130,11 +210,86 @@ export default function Todo() {
                     >
                       <Trash2 className="text-red-500 w-5 h-5" />
                     </Button>
-                    <Button className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary p-2">
-                      <Plus className="w-5 h-5" />
-                      Subtask
+                    <Button
+                      onClick={() => toggleExpanded(todo.id)}
+                      className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary p-2"
+                    >
+                      {todo.expanded ? <ChevronUp /> : <ChevronDown />}
+                      {todo.subtasks.length} Subtask
                     </Button>
                   </div>
+
+                  {todo.expanded && (
+                    <>
+                      <ul className="ml-8 border-l border-zinc-800 pl-4">
+                        {todo.subtasks.map((subtask) => (
+                          <li
+                            className="flex items-center gap-2 p-2"
+                            key={subtask.id}
+                          >
+                            <Button
+                              className={` w-5 h-5 p-0 transition-all ${
+                                subtask.completed
+                                  ? "bg-primary/10 hover:bg-primary/5 border border-primary"
+                                  : "bg-zinc-800 border border-zinc-700"
+                              }`}
+                              onClick={() => toggleSubtask(todo.id, subtask.id)}
+                            >
+                              {subtask.completed && (
+                                <Check className="w-4 h-4 text-primary" />
+                              )}
+                            </Button>
+                            <span
+                              className={`flex-1 text-base font-medium ${
+                                subtask.completed
+                                  ? " line-through text-zinc-600"
+                                  : "text-zinc-500"
+                              }`}
+                            >
+                              {subtask.text}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              className="hover:bg-transparent p-0 mr-2"
+                              onClick={() => deleteSubtask(todo.id, subtask.id)}
+                            >
+                              <Trash2 className="text-red-500 w-5 h-5" />
+                            </Button>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {editingTodoId === todo.id ? (
+                        <div className="flex gap-2 mt-2 p-3">
+                          <Input
+                            type="text"
+                            placeholder="Add a subtask..."
+                            value={newSubtask}
+                            onChange={(e) => setNewSubtask(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") addSubtask(todo.id);
+                            }}
+                            className="flex-1 border-none bg-zinc-800 text-zinc-400 h-10"
+                          />
+                          <Button
+                            onClick={() => addSubtask(todo.id)}
+                            className="bg-primary/10 hover:bg-primary/5 border border-primary text-primary p-2"
+                          >
+                            Add
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button
+                          onClick={() => setEditingTodoId(todo.id)}
+                          variant="ghost"
+                          size="sm"
+                          className="bg-transparent hover:bg-primary/5 hover:text-primary text-primary p-2"
+                        >
+                          <Plus size={14} className="mr-1" /> Add Subtask
+                        </Button>
+                      )}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
