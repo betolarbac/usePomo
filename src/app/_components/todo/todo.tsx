@@ -195,7 +195,7 @@ export default function Todo() {
                       )}
                     </Button>
                     <span
-                      className={`flex-1 text-base font-medium ${
+                      className={`flex-1 text-base font-medium break-all ${
                         todo.completed
                           ? " line-through text-zinc-600"
                           : "text-zinc-500"
@@ -240,7 +240,7 @@ export default function Todo() {
                               )}
                             </Button>
                             <span
-                              className={`flex-1 text-base font-medium ${
+                              className={`flex-1 text-base font-medium break-all ${
                                 subtask.completed
                                   ? " line-through text-zinc-600"
                                   : "text-zinc-500"
