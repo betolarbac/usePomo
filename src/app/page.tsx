@@ -5,12 +5,15 @@ import Player from "./_components/player/player";
 import Pomodoro from "./_components/pomodoro/pomodoro";
 import Todo from "./_components/todo/todo";
 import { ConquestProvider } from "./_components/conquest-level/conquestContext";
+import PlayerRadio from "./_components/player/playerRadio";
+import { PlayerProvider } from "./_components/player/playerContext";
 
 export default function Home() {
   return (
     <LevelProvider>
       <ConquestProvider>
-        <div className="flex gap-3 p-3 h-dvh">
+      <PlayerProvider >
+      <div className="flex gap-3 p-3 h-dvh">
           <Player />
 
           <div className="flex flex-col flex-1">
@@ -19,9 +22,8 @@ export default function Home() {
             <div>
               <div className="flex gap-9">
                 <LevelProgress />
-                <div className="h-28 mt-12 mb-6 border rounded-xl border-zinc-800 p-6 flex-1">
-                  <h2>radios</h2>
-                </div>
+
+                <PlayerRadio />
               </div>
               <div className="flex gap-9">
                 <Pomodoro />
@@ -30,6 +32,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </PlayerProvider>
       </ConquestProvider>
     </LevelProvider>
   );
