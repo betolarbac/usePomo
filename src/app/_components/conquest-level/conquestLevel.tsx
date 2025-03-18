@@ -30,7 +30,13 @@ export default function ConquestLevel() {
     <div className="mb-2">
       <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-zinc-800 hover:bg-zinc-800/80 border-none p-3"><Trophy className="text-yellow-600"/></Button>
+        <div className="flex gap-2 bg-zinc-800 hover:bg-zinc-800/80 border-none p-2 px-3 rounded-sm cursor-pointer">
+        <Button variant="link" className=" border-none p-3"><Trophy className="text-yellow-600"/></Button>
+        <div className="flex flex-col">
+          <span className="text-xs text-zinc-500">Conquistas</span>
+          <span className="text-xs text-zinc-500">{unlockedCount} / {totalCount}</span>
+        </div>
+        </div>
       </DialogTrigger>
         <DialogContent className="bg-zinc-900 border border-zinc-800 text-zinc-300 max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
           <DialogHeader>

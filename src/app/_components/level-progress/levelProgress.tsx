@@ -42,7 +42,7 @@ export default function LevelProgress() {
           <p className="text-center text-sm text-gray-600">
             {sessionsCompleted > 0 
               ? `${sessionsCompleted} sessions completed` 
-              : "No sessions completed yet"}
+              : "Nenhuma sessão concluída ainda"}
           </p>
           <div className="flex items-center gap-1">
             <Flame className="h-4 w-4 text-orange-500" />
