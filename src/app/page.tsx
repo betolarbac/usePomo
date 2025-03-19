@@ -12,27 +12,24 @@ export default function Home() {
   return (
     <LevelProvider>
       <ConquestProvider>
-      <PlayerProvider >
-      <div className="flex gap-3 p-3 h-dvh">
-          <Player />
-
-          <div className="flex flex-col flex-1">
-            <Header />
-
-            <div>
-              <div className="flex gap-9">
-                <LevelProgress />
-
-                <PlayerRadio />
-              </div>
-              <div className="flex gap-9">
-                <Pomodoro />
-                <Todo />
+        <PlayerProvider>
+          <div className="block xl:flex gap-3 p-3 h-dvh">
+            <Player />
+            <div className="flex flex-col flex-1 pb-36 xl:pb-0">
+              <Header />
+              <div>
+                <div className="flex gap-6 xl:gap-9 flex-col xl:flex-row">
+                  <LevelProgress />
+                  <PlayerRadio />
+                </div>
+                <div className="flex gap-6 xl:gap-9 flex-col xl:flex-row">
+                  <Pomodoro />
+                  <Todo />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </PlayerProvider>
+        </PlayerProvider>
       </ConquestProvider>
     </LevelProvider>
   );

@@ -9,7 +9,7 @@ export default function Pomodoro() {
   const [nextStage, setNextStage] = useState<PomodoroStage>("shortBreak");
 
   return (
-    <div className="border rounded-xl border-zinc-800 p-6 flex-1">
+    <div className="border rounded-xl border-zinc-800 p-4 xl:p-6 flex-1">
       <div className="flex items-center justify-between border-b-[1px] border-zinc-800 pb-6">
         <div>
           <h3 className="text-zinc-400 text-2xl font-bold">Dados da sessão</h3>

@@ -155,7 +155,7 @@ export default function Todo() {
   };
 
   return (
-    <div className="flex flex-col border rounded-xl border-zinc-800 p-6 flex-1">
+    <div className="flex flex-col border rounded-xl border-zinc-800 p-4 xl:p-6 flex-1">
       <div className="flex items-center justify-between border-b-[1px] border-zinc-800 pb-6">
         <div>
           <h3 className="text-zinc-400 text-2xl font-bold">Lista de tarefas</h3>
@@ -169,8 +169,8 @@ export default function Todo() {
         </div>
       </div>
 
-      <ScrollArea className="h-full max-h-[436px] py-6">
-        <div className="pr-6">
+      <ScrollArea className="h-full max-h-[436px] py-6 overflow-auto xl:overflow-hidden">
+        <div className="pr-2 xl:p-6">
           {todos.length === 0 ? (
             <div className="flex justify-center">
               <span className="text-zinc-500 text-base font-medium">
@@ -297,7 +297,7 @@ export default function Todo() {
         </div>
       </ScrollArea>
 
-      <div className="flex w-full items-center gap-3">
+      <div className="flex w-full items-center gap-3 pt-4 xl:pt-0">
         <Input
           type="text"
           placeholder="Nova tarefa"

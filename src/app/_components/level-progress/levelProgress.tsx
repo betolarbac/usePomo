@@ -13,7 +13,7 @@ export default function LevelProgress() {
   const progressPercentage = (points / pointsForNextLevel) * 100;
 
   return (
-    <div className="mt-12 mb-6 border rounded-xl border-zinc-800 p-6 flex-1">
+    <div className="mt-12 mb-0 xl:mb-6 border rounded-xl border-zinc-800 p-4 xl:p-6 flex-1">
       <div className="flex justify-between">
         <h2 className="text-xl font-bold text-zinc-400 mb-4">Sua jornada de progresso</h2>
         <div>
