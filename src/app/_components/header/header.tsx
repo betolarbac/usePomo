@@ -1,14 +1,40 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Languages, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
+import { auth } from "@/lib/firebaseConfig";
+import Login from "../login/login";
 
 
 export default function Header() {
+  const [user, setUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    // Set up auth state listener
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignOut = () => {
+    auth.signOut();
+  };
+
   return (
     <div className="flex gap-4">
       <div className="flex gap-4 flex-1 justify-center">
-        <Button variant="link" className="text-white p-0">
-          Login
-        </Button>
+        {!user ? (
+          <Login />
+        ) : (
+          <Button 
+            variant="link" 
+            className="text-white p-0"
+            onClick={handleSignOut}
+          >
+            Logout
+          </Button>
+        )}
         <Button variant="link" className="text-white p-0">
           Planos
         </Button>
