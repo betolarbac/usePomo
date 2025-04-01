@@ -4,6 +4,7 @@ import { usePlayer } from "./playerContext";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Playlist from "../playlist/playlist";
 
 export default function PlayerRadio() {
   const { radios, playRadio, currentRadio, isPlaying, setIsPlaying } =
@@ -12,7 +13,10 @@ export default function PlayerRadio() {
   return (
     <div className="mt-0 xl:mt-12 mb-6 border rounded-xl border-zinc-800 p-4 xl:p-6 flex-1">
       <div>
-        <h2 className="text-xl font-bold text-zinc-400 mb-4">Radios</h2>
+        <div className="flex justify-between">
+          <h2 className="text-xl font-bold text-zinc-400 mb-4">Radios</h2>
+          <Playlist />
+        </div>
         <ScrollArea className="">
         <div className="flex gap-4">
           {radios.map((radio) => {
