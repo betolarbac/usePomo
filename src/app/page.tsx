@@ -1,4 +1,3 @@
-import Header from "./_components/header/header";
 import LevelProgress from "./_components/level-progress/levelProgress";
 import { LevelProvider } from "./_components/level-progress/levelContext";
 import Player from "./_components/player/player";
@@ -16,8 +15,7 @@ export default function Home() {
           <div className="block xl:flex gap-3 p-3 h-dvh">
             <Player />
             <div className="flex flex-col flex-1 pb-36 xl:pb-0">
-              <Header />
-              <div>
+              <div className="max-[1440px]:pb-32">
                 <div className="flex gap-6 xl:gap-9 flex-col xl:flex-row">
                   <LevelProgress />
                   <PlayerRadio />
