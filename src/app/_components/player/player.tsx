@@ -28,7 +28,7 @@ export default function Player() {
     <>
       <div
         style={{ backgroundImage: `url(${thumbnailUrl})` }}
-        className="rounded-md bg-cover bg-center relative hidden xl:block"
+        className="rounded-md bg-cover bg-center relative hidden min-[1440px]:block"
       >
         <div className="bg-[#1f1f1f] absolute top-0 left-0 right-0 bottom-0 opacity-[.9] z-10"></div>
         <div className="max-w-80 flex-1 p-6 border border-zinc-800 rounded-md h-full text-white flex flex-col justify-between z-20 relative">
@@ -112,7 +112,7 @@ export default function Player() {
         </div>
       </div>
 
-      <div className="block xl:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 z-50 ">
+      <div className="block min-[1440px]:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 z-50 ">
         <div className="flex items-center p-2 gap-3">
           <div>
             <Image
