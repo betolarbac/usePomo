@@ -34,11 +34,11 @@ interface PlayerContextType {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const defaultRadios: Radio[] = [
+const defaultRadios = [
   {
     id: "jfKfPfyJRdk",
     title: "lofi hip hop radio ",
-    artist: "Lofi Girl",
+    artist: "Lofi Girl 2",
   },
   {
     id: "HuFYqnbVbzY",
@@ -53,6 +53,21 @@ const defaultRadios: Radio[] = [
   {
     id: "TtkFsfOP9QI",
     title: "Cozy Coffee Shop Ambience",
+    artist: "Lofi Girl",
+  },
+  {
+    id: "4xDzrJKXOOY",
+    title: "synthwave radio 🌌 beats to chill/game to",
+    artist: "Lofi Girl",
+  },
+  {
+    id: "P6Segk8cr-c",
+    title: "sad lofi radio ☔ beats for rainy days",
+    artist: "Lofi Girl",
+  },
+  {
+    id: "28KRPhVzCus",
+    title: "lofi hip hop radio 💤 beats to sleep/chill to",
     artist: "Lofi Girl",
   },
 ];
