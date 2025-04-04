@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UsePomo - Técnica Pomodoro com Sistema de Níveis e Tarefas
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15.1.7-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Firebase](https://img.shields.io/badge/Firebase-11.5.0-FFCA28?style=for-the-badge&logo=firebase)
 
-First, run the development server:
+## 📋 Sobre o Projeto
+
+UsePomo é uma aplicação web moderna que combina a técnica Pomodoro com um sistema de gamificação para aumentar sua produtividade. O aplicativo oferece um timer Pomodoro completo, gerenciamento de tarefas, sistema de níveis e conquistas, tudo em uma interface elegante e intuitiva.
+
+## ✨ Funcionalidades
+
+- **🍅 Timer Pomodoro Completo**
+  - Ciclos de foco (25 min), pausas curtas (5 min) e pausas longas (15 min)
+  - Notificações ao completar cada ciclo
+  - Visualização do próximo estágio
+
+- **📝 Gerenciamento de Tarefas**
+  - Adicione, edite e exclua tarefas
+  - Crie subtarefas para melhor organização
+  - Acompanhe seu progresso com marcação de tarefas concluídas
+
+- **⭐ Sistema de Níveis e Gamificação**
+  - Ganhe pontos ao completar sessões de foco
+  - Suba de nível conforme acumula pontos
+  - Acompanhe seu progresso com uma barra visual
+
+- **🏆 Conquistas Desbloqueáveis**
+  - Desbloqueie conquistas baseadas em seu desempenho
+  - Acompanhe minutos de foco acumulados
+  - Mantenha sequências de dias produtivos
+
+- **🎵 Player de Música Integrado**
+  - Ouça música enquanto trabalha
+  - Controle de volume e reprodução
+
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js 15** - Framework React com renderização do lado do servidor
+- **React 19** - Biblioteca JavaScript para construção de interfaces
+- **TypeScript** - Superset tipado de JavaScript
+- **TailwindCSS** - Framework CSS utilitário
+- **Radix UI** - Componentes de interface acessíveis
+- **Firebase** - Plataforma de desenvolvimento de aplicativos
+- **Lucide React** - Biblioteca de ícones
+- **Recharts** - Biblioteca de gráficos para React
+
+## 🛠️ Instalação e Uso
 
 ```bash
+# Clone o repositório
+git clone https://github.com/betolarbac/usePomo.git
+
+# Entre na pasta do projeto
+cd usepomo
+
+# Instale as dependências
+npm install
+
+# Execute o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📱 Layout Responsivo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O UsePomo foi desenvolvido com uma abordagem mobile-first, garantindo uma experiência de usuário excelente em dispositivos de todos os tamanhos, desde smartphones até desktops.
 
-## Learn More
+## 🔄 Persistência de Dados
 
-To learn more about Next.js, take a look at the following resources:
+O aplicativo utiliza localStorage para salvar seu progresso, tarefas e conquistas, garantindo que seus dados sejam mantidos mesmo após fechar o navegador.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+O projeto pode ser facilmente implantado na [Vercel](https://vercel.com), plataforma dos criadores do Next.js, para uma experiência de deploy simples e rápida.
 
-## Deploy on Vercel
+## 📄 Licença
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Este projeto está sob a licença MIT.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Desenvolvido com ❤️ para aumentar sua produtividade e foco.
